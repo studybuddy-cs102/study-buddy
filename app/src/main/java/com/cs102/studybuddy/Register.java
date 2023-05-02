@@ -60,7 +60,7 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-               if (!email.substring(email.length()-14).equals("bilkent.edu.tr")){
+               if (!email.endsWith("bilkent.edu.tr")) {
                     Toast.makeText(Register.this, email.substring(email.length()-14), Toast.LENGTH_LONG).show();
                     return;
                 }
