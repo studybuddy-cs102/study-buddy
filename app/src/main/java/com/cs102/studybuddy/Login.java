@@ -1,16 +1,15 @@
 package com.cs102.studybuddy;
 
 import android.content.Intent;
-import android.text.InputType;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,12 +28,13 @@ public class Login extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null&&currentUser.isEmailVerified()){
+        if (currentUser != null && currentUser.isEmailVerified()) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
                 email = String.valueOf(logEmail.getText());
                 pass = String.valueOf(logPassword.getText());
 
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Login.this, "Enter email", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -66,11 +66,11 @@ public class Login extends AppCompatActivity {
                 }
 
                 mAuth.signInWithEmailAndPassword(email, pass)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    if (mAuth.getCurrentUser().isEmailVerified()){
+                                    if (mAuth.getCurrentUser().isEmailVerified()) {
                                         Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
@@ -104,11 +104,11 @@ public class Login extends AppCompatActivity {
                 String email;
                 email = String.valueOf(logEmail.getText());
 
-                if (!TextUtils.isEmpty(email)){
+                if (!TextUtils.isEmpty(email)) {
                     mAuth.sendPasswordResetEmail(logEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(Login.this, "If the email exists, password change link will be sent your email", Toast.LENGTH_LONG).show();
                             }
                         }
