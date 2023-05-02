@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">StudyBuddy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_main_fragment">Hello Main Fragment</string>
+    <string name="hello_files_fragment" />
+    <string name="hello_profile_fragment">Hello profile fragment</string>
+    <string name="hello_search_fragment">Hello search fragment</string>
+    <string name="studybuddy">StudyBuddy</string>
+    <string name="please_login_with_your_email_and_password">Please login with your email and password</string>
+    <string name="studybuddy_bilkent">studybuddy@bilkent</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>
