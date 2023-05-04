@@ -18,12 +18,10 @@ public class MainActivity extends AppCompatActivity {
     FilesFragment filesFragment = new FilesFragment();
     ProfileFragment profileFragment = new ProfileFragment();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         bottomNavigationView = findViewById(R.id.buttomNav);
 
@@ -50,7 +48,5 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
 }
