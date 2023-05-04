@@ -11,4 +11,5 @@
     <string name="studybuddy_bilkent">studybuddy@bilkent</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="msg_verification_sent">Verification sent</string>
 </resources>

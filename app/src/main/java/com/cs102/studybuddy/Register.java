@@ -1,8 +1,5 @@
 package com.cs102.studybuddy;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class Register extends AppCompatActivity {
 
@@ -55,47 +54,59 @@ public class Register extends AppCompatActivity {
                 pass = String.valueOf(regPass.getText());
                 passconfirm = String.valueOf(regConfirm.getText());
 
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Register.this, "Enter Email", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-               if (!email.endsWith("bilkent.edu.tr")) {
+                if (!email.endsWith("bilkent.edu.tr")) {
                     Toast.makeText(Register.this, "Email must be a Bilkent email", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (TextUtils.isEmpty(pass)){
+                if (TextUtils.isEmpty(pass)) {
                     Toast.makeText(Register.this, "Enter Password", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (!pass.equals(passconfirm)){
+                if (!pass.equals(passconfirm)) {
                     Toast.makeText(Register.this, "Passwords do not match", Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 mAuth.createUserWithEmailAndPassword(email, pass)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    signUp.setText("Awaiting Verification");
-                                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Toast.makeText(Register.this, "Check Email",
-                                                    Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(getApplicationContext(), Login.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
+                        .addOnSuccessListener(authResult -> {
+                            signUp.setText(R.string.msg_verification_sent);
+                            signUp.setEnabled(false);
+
+                            Objects.requireNonNull(authResult.getUser()).sendEmailVerification()
+                                    .addOnSuccessListener(result -> {
+                                        Toast.makeText(
+                                            Register.this,
+                                            "Check your email for verification link",
+                                            Toast.LENGTH_LONG
+                                        ).show();
+
+                                        startActivity(
+                                                new Intent(getApplicationContext(), Login.class)
+                                        );
+                                        finish();
+                                    })
+                                    .addOnFailureListener(result -> {
+                                        Toast.makeText(
+                                            Register.this,
+                                            "Failed to send verification",
+                                            Toast.LENGTH_LONG
+                                        ).show();
+
+                                        startActivity(
+                                                new Intent(getApplicationContext(), Register.class)
+                                        );
+                                        finish();
                                     });
-
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(Register.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                        })
+                        .addOnFailureListener(authException -> {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(Register.this, authException.getLocalizedMessage(),
+                                Toast.LENGTH_SHORT).show();
                         });
             }
         });
