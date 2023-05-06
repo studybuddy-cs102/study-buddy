@@ -148,12 +148,14 @@
                 android:layout_marginEnd="20dp"
 
                 android:orientation="horizontal">
+
             <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/pass_icon" />
+
             <EditText
                     android:id="@+id/confirm_password_signup"
                     android:layout_width="match_parent"
@@ -171,14 +173,15 @@
                     android:singleLine="true"
                     android:paddingStart="5dp"
                     android:paddingEnd="20dp"
-                    android:textSize="16sp"
-            />
+                    android:textSize="16sp" />
         </RelativeLayout>
+
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/line_primary" />
+
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -205,25 +208,33 @@
                     android:inputType="number"
                     android:layout_centerInParent="true" />
 
-            <EditText
-                    android:id="@+id/gender"
-                    android:maxLength="6"
+            <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/avenir"
+                    android:id="@+id/gender"
+                    android:checkedButton="@id/gender_male"
                     android:layout_alignParentEnd="true"
-                    android:layout_toRightOf="@id/year_birth"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginStart="30dp"
                     android:layout_marginEnd="20dp"
-                    android:hint="Male/Female"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:singleLine="true"
-                    android:textSize="16sp"
-                    android:layout_centerInParent="true" />
+                    android:gravity="center_vertical"
+                    android:layout_centerInParent="true">
+
+                <RadioButton
+                        android:text="@string/gender_female"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gender_female"
+                        android:layout_weight="0.5" />
+
+                <RadioButton
+                        android:text="@string/gender_male"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gender_male"
+                        android:layout_weight="0.5" />
+            </RadioGroup>
+
         </RelativeLayout>
+
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="130dp"

@@ -11,5 +11,8 @@
     <string name="studybuddy_bilkent">studybuddy@bilkent</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
     <string name="msg_verification_sent">Verification sent</string>
+    <string name="msg_check_email_verify">Check your email for verification link</string>
 </resources>
