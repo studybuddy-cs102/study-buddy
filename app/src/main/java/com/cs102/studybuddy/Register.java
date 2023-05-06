@@ -22,8 +22,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
+    private final Pattern emailPattern = Pattern.compile(
+        "([a-zA-Z0-9._]+)@([a-z]*?\\.?bilkent\\.edu\\.tr)"
+    );
+    private Matcher emailMatcher;
+
     private EditText txtEmail, txtPassword, txtPasswordConfirm, txtBirthYear;
     private RadioGroup genderGroup;
     private Button btnSignup;
@@ -36,43 +43,43 @@ public class Register extends AppCompatActivity {
 
     private void addUserToDb(@NonNull FirebaseUser authUser) {
         CollectionReference users = FirebaseFirestore
-                .getInstance().collection("users");
+            .getInstance().collection("users");
 
         int birthYear = -1;
         try {
             birthYear = Integer.parseInt(txtBirthYear.getText().toString());
-        } catch (Exception e) {
-            Toast.makeText(
-                    Register.this,
-                    e.getLocalizedMessage(),
-                    Toast.LENGTH_LONG
-            ).show();
+        } catch (NumberFormatException e) {
+            txtBirthYear.setError(e.getLocalizedMessage());
         }
 
-        String username = Objects.requireNonNull(authUser.getEmail()).split("@")[0];
-        User user = new User(
-            username,
-            authUser.getEmail(),
-            "John",
-            "Doe",
-            birthYear,
-            ((RadioButton) findViewById(genderGroup.getCheckedRadioButtonId())).getText().toString()
-        );
-        users.document(username)
+        String email = Objects.requireNonNull(authUser.getEmail());
+        String username = emailMatcher.group(1);
+
+        String gender;
+        try {
+            RadioButton radioGender = (RadioButton) findViewById(genderGroup.getCheckedRadioButtonId());
+            gender = radioGender.getText().toString();
+        } catch (Exception e) {
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        User user = new User(username, email, "John",
+            "Doe", birthYear, gender);
+
+        users.document(Objects.requireNonNull(username))
             .set(user, SetOptions.merge())
             .addOnFailureListener(exception -> Toast.makeText(
-                    Register.this,
-                    exception.getLocalizedMessage(),
-                    Toast.LENGTH_LONG
+                Register.this,
+                exception.getLocalizedMessage(),
+                Toast.LENGTH_LONG
             ).show());
     }
 
     private boolean isValidEmail(String email) {
-        if (TextUtils.isEmpty(email)) {
-            txtEmail.setError("Email is required");
-            return false;
-        } else if (!email.endsWith("bilkent.edu.tr")) {
-            txtEmail.setError("Email must be a Bilkent email");
+        emailMatcher = emailPattern.matcher(email);
+        if (!emailMatcher.find()) {
+            txtEmail.setError("Invalid email");
             return false;
         }
 
