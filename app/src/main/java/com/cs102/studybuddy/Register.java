@@ -6,30 +6,150 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.Objects;
 
 public class Register extends AppCompatActivity {
-
-    private EditText regEmail, regPass, regConfirm, year, gender;
-    private Button signUp;
-    private FirebaseAuth mAuth;
+    private EditText txtEmail, txtPassword, txtPasswordConfirm, txtBirthYear;
+    private RadioGroup genderGroup;
+    private Button btnSignup;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null){
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+    }
+
+    private void addUserToDb(@NonNull FirebaseUser authUser) {
+        CollectionReference users = FirebaseFirestore
+                .getInstance().collection("users");
+
+        int birthYear = -1;
+        try {
+            birthYear = Integer.parseInt(txtBirthYear.getText().toString());
+        } catch (Exception e) {
+            Toast.makeText(
+                    Register.this,
+                    e.getLocalizedMessage(),
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+
+        String username = Objects.requireNonNull(authUser.getEmail()).split("@")[0];
+        User user = new User(
+            username,
+            authUser.getEmail(),
+            "John",
+            "Doe",
+            birthYear,
+            ((RadioButton) findViewById(genderGroup.getCheckedRadioButtonId())).getText().toString()
+        );
+        users.document(username)
+            .set(user, SetOptions.merge())
+            .addOnFailureListener(exception -> Toast.makeText(
+                    Register.this,
+                    exception.getLocalizedMessage(),
+                    Toast.LENGTH_LONG
+            ).show());
+    }
+
+    private boolean isValidEmail(String email) {
+        if (TextUtils.isEmpty(email)) {
+            txtEmail.setError("Email is required");
+            return false;
+        } else if (!email.endsWith("bilkent.edu.tr")) {
+            txtEmail.setError("Email must be a Bilkent email");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isValidPassword(String password, String passwordConfirm) {
+        if (TextUtils.isEmpty(password)) {
+            txtPassword.setError("Password cannot be empty");
+            return false;
+        } else if (password.length() < 8) {
+            txtPassword.setError("Password cannot be less than 8 characters");
+            return false;
+        } else if (!password.equals(passwordConfirm)) {
+            txtPasswordConfirm.setError("Passwords do not match");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void onEmailVerification(@NonNull Task<Void> task) {
+        String message;
+        Class<?> nextActivity;
+
+        if (!task.isSuccessful()) {
+            message = Objects.requireNonNull(task.getException()).getLocalizedMessage();
+            nextActivity = Register.class;
+        } else {
+            message = getString(R.string.msg_check_email_verify);
+            nextActivity = Login.class;
+        }
+
+        Toast.makeText(Register.this, message, Toast.LENGTH_LONG)
+            .show();
+
+        startActivity(
+                new Intent(getApplicationContext(), nextActivity)
+        );
+        finish();
+    }
+
+    private void onCreateUser(@NonNull Task<AuthResult> task) {
+        if (!task.isSuccessful()) {
+            Toast.makeText(
+                Register.this,
+                Objects.requireNonNull(task.getException()).getLocalizedMessage(),
+                Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+        btnSignup.setText(R.string.msg_verification_sent);
+        btnSignup.setEnabled(false);
+
+        AuthResult authResult = Objects.requireNonNull(task.getResult());
+
+        Objects.requireNonNull(authResult.getUser()).sendEmailVerification()
+                .addOnCompleteListener(this::onEmailVerification);
+
+        addUserToDb(authResult.getUser());
+    }
+
+    private void onSignup(@NonNull View v) {
+        String email = txtEmail.getText().toString();
+        String password = txtPassword.getText().toString();
+
+        if (!isValidEmail(email)) return;
+        if (!isValidPassword(password, txtPasswordConfirm.getText().toString())) return;
+        if (TextUtils.isEmpty(txtBirthYear.getText())) {
+            txtBirthYear.setError("Birth year is required");
+            return;
+        }
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this::onCreateUser);
     }
 
     @Override
@@ -37,78 +157,15 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        regEmail = findViewById(R.id.email_signup);
-        regPass = findViewById(R.id.password_signup);
-        regConfirm = findViewById(R.id.confirm_password_signup);
-        year = findViewById(R.id.year_birth);
-        gender = findViewById(R.id.gender);
-        signUp = findViewById(R.id.SignUp);
+        txtEmail = findViewById(R.id.email_signup);
+        txtPassword = findViewById(R.id.password_signup);
+        txtPasswordConfirm = findViewById(R.id.confirm_password_signup);
+        txtBirthYear = findViewById(R.id.year_birth);
+        genderGroup = findViewById(R.id.gender);
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email, pass, passconfirm;
-                email = String.valueOf(regEmail.getText());
-                pass = String.valueOf(regPass.getText());
-                passconfirm = String.valueOf(regConfirm.getText());
-
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(Register.this, "Enter Email", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (!email.endsWith("bilkent.edu.tr")) {
-                    Toast.makeText(Register.this, "Email must be a Bilkent email", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(pass)) {
-                    Toast.makeText(Register.this, "Enter Password", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (!pass.equals(passconfirm)) {
-                    Toast.makeText(Register.this, "Passwords do not match", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                mAuth.createUserWithEmailAndPassword(email, pass)
-                        .addOnSuccessListener(authResult -> {
-                            signUp.setText(R.string.msg_verification_sent);
-                            signUp.setEnabled(false);
-
-                            Objects.requireNonNull(authResult.getUser()).sendEmailVerification()
-                                    .addOnSuccessListener(result -> {
-                                        Toast.makeText(
-                                            Register.this,
-                                            "Check your email for verification link",
-                                            Toast.LENGTH_LONG
-                                        ).show();
-
-                                        startActivity(
-                                                new Intent(getApplicationContext(), Login.class)
-                                        );
-                                        finish();
-                                    })
-                                    .addOnFailureListener(result -> {
-                                        Toast.makeText(
-                                            Register.this,
-                                            "Failed to send verification",
-                                            Toast.LENGTH_LONG
-                                        ).show();
-
-                                        startActivity(
-                                                new Intent(getApplicationContext(), Register.class)
-                                        );
-                                        finish();
-                                    });
-                        })
-                        .addOnFailureListener(authException -> {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(Register.this, authException.getLocalizedMessage(),
-                                Toast.LENGTH_SHORT).show();
-                        });
-            }
-        });
+        btnSignup = findViewById(R.id.SignUp);
+        btnSignup.setOnClickListener(this::onSignup);
     }
 }
