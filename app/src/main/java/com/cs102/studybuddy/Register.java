@@ -21,6 +21,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,15 +58,15 @@ public class Register extends AppCompatActivity {
 
         String gender;
         try {
-            RadioButton radioGender = (RadioButton) findViewById(genderGroup.getCheckedRadioButtonId());
+            RadioButton radioGender = findViewById(genderGroup.getCheckedRadioButtonId());
             gender = radioGender.getText().toString();
         } catch (Exception e) {
             Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             return;
         }
 
-        User user = new User(username, email, "John",
-            "Doe", birthYear, gender);
+        User user = new User(email, "John", "Doe",
+            birthYear, gender, new HashMap<>(), "", true);
 
         users.document(Objects.requireNonNull(username))
             .set(user, SetOptions.merge())
