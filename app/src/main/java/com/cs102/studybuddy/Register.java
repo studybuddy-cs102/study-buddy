@@ -65,7 +65,7 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        User user = new User(email, "John", "Doe",
+        User user = new User(username, email, "John", "Doe",
             birthYear, gender, new HashMap<>(), "", true);
 
         users.document(Objects.requireNonNull(username))
