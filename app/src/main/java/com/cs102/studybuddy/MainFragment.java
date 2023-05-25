@@ -21,25 +21,10 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        txtHello = rootView.findViewById(R.id.textView1);
-        btnLogout = rootView.findViewById(R.id.goButton);
-        btnLogout.setOnClickListener(this::onSignOut);
 
         User currentUser = ((StudyBuddy) requireActivity().getApplication()).currentUser;
-
-        txtHello.setText(currentUser.getName());
 
         return rootView;
     }
 
-    private void goToLoginPage() {
-        Intent intent = new Intent(getActivity(), Login.class);
-        startActivity(intent);
-        requireActivity().finish();
-    }
-
-    private void onSignOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-        goToLoginPage();
-    }
 }
