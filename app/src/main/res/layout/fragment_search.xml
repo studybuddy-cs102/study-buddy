@@ -6,10 +6,18 @@
         tools:context=".SearchFragment"
         android:orientation="horizontal">
 
+
+
     <com.cs102.studybuddy.CourseListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/courseListView">
     </com.cs102.studybuddy.CourseListView>
+
+    <com.cs102.studybuddy.UserListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/MatchView">
+    </com.cs102.studybuddy.UserListView>
 
 </LinearLayout>
