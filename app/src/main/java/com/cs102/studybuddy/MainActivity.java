@@ -34,27 +34,35 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnItemSelectedListener(this::onPageSelect);
-
+        setSupportActionBar(bottomNavigationView);
+        getSupportActionBar().setTitle("My Courses");
         progressBar = findViewById(R.id.progressBar);
 
         loadCurrentUser();
     }
 
+    private void setSupportActionBar(BottomNavigationView bottomNavigationView) {
+    }
+
     private boolean onPageSelect(@NonNull MenuItem item) {
+        getSupportActionBar().show();
         if (item.getItemId() == R.id.home) {
+            getSupportActionBar().setTitle("My Courses");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
             return true;
         } else if (item.getItemId() == R.id.search) {
+            getSupportActionBar().setTitle("Search Courses");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
             return true;
         } else if (item.getItemId() == R.id.files) {
+            getSupportActionBar().setTitle("Files");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, filesFragment).commit();
             return true;
         } else if (item.getItemId() == R.id.profile) {
+            getSupportActionBar().hide();
             getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
             return true;
         }
-
         return false;
     }
 

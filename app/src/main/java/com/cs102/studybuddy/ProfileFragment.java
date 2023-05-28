@@ -1,5 +1,6 @@
 package com.cs102.studybuddy;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class ProfileFragment extends Fragment {
 
         User currentUser = ((StudyBuddy) requireActivity().getApplication()).currentUser;
 
-        txtHello.setText(currentUser.getName());
+        txtHello.setText("Hello "+currentUser.getName());
 
         return rootView;
     }
