@@ -5,12 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -35,6 +33,7 @@ public class SearchFragment extends Fragment {
         user.Enroll(c);
         db.collection("users").document(user.getUsername()).set(user, SetOptions.merge());
         db.collection("courses").document(c.getCourseId()).set(c, SetOptions.merge());
+
         // TODO: Show the users after joining
         courseListView.setVisibility(View.GONE);
         userListView.setVisibility(View.VISIBLE);

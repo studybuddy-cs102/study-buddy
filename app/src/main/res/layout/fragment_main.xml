@@ -13,4 +13,10 @@
             android:id="@+id/courseListView">
     </com.cs102.studybuddy.CourseListView>
 
+    <com.cs102.studybuddy.CourseDiscussionView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/courseDiscussionView"
+            android:visibility="gone"/>
+
 </LinearLayout>

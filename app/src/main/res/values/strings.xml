@@ -15,4 +15,5 @@
     <string name="gender_female">Female</string>
     <string name="msg_verification_sent">Verification sent</string>
     <string name="msg_check_email_verify">Check your email for verification link</string>
+    <string name="dotSeparator">•</string>
 </resources>
