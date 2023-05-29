@@ -1,4 +1,4 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,7 +10,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.cs102.studybuddy.core.Course;
 import com.cs102.studybuddy.databinding.CourseCardLayoutBinding;
+import com.cs102.studybuddy.listeners.CourseClickListener;
+import com.cs102.studybuddy.core.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,12 +49,22 @@ public class CourseListView extends ScrollView {
         this.courseClickListener = courseClickListener;
     }
 
+    public void removeCourse(Course c) {
+        courseList.remove(c.getCourseId());
+        courseTable.removeAllViews();
+        for (Course course : courseList.values()) {
+            createCourseView(course);
+        }
+    }
+
     // Add a course to the list
     public void addCourse(Course course) {
         if (courseList.containsKey(course.getCourseId())) return;
 
         courseList.put(course.getCourseId(), course);
+    }
 
+    public void createCourseView(Course course) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         CourseCardLayoutBinding binding = CourseCardLayoutBinding.inflate(inflater);
         binding.setCourse(course);
@@ -92,7 +105,9 @@ public class CourseListView extends ScrollView {
 
         // When we got the course from Firebase,
         // create the view with the data bindings.
-        addCourse(task.getResult().toObject(Course.class));
+        Course course = task.getResult().toObject(Course.class);
+        addCourse(course);
+        createCourseView(course);
     }
 
     // Callback when we got courses collection
@@ -108,7 +123,9 @@ public class CourseListView extends ScrollView {
         }
 
         for (DocumentSnapshot courseDoc : task.getResult().getDocuments()) {
-            addCourse(courseDoc.toObject(Course.class));
+            Course course = courseDoc.toObject(Course.class);
+            addCourse(course);
+            createCourseView(course);
         }
     }
 }

@@ -7,7 +7,7 @@
     <data>
         <variable
                 name="post"
-                type="com.cs102.studybuddy.Post" />
+                type="com.cs102.studybuddy.core.Post" />
         <variable
                 name="relativeDate"
                 type="String" />

@@ -3,20 +3,22 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainFragment"
+        tools:context=".ui.MainFragment"
         android:gravity="center"
         android:orientation="vertical">
 
-    <com.cs102.studybuddy.CourseListView
+    <com.cs102.studybuddy.views.CourseListView
+            android:id="@+id/courseListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/courseListView">
-    </com.cs102.studybuddy.CourseListView>
+            android:visibility="visible"/>
 
-    <com.cs102.studybuddy.CourseDiscussionView
+    <com.cs102.studybuddy.views.CourseDiscussionView
+            android:id="@+id/courseDiscussionView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/courseDiscussionView"
-            android:visibility="gone"/>
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone" />
 
 </LinearLayout>

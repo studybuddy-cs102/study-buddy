@@ -16,4 +16,10 @@
     <string name="msg_verification_sent">Verification sent</string>
     <string name="msg_check_email_verify">Check your email for verification link</string>
     <string name="dotSeparator">•</string>
+    <string name="txtLeave">Leave</string>
+    <string name="txtWantToStudy">I want to study</string>
+    <string name="txtPost">Post</string>
+    <string name="postContentHint">Leave your toughts here!</string>
+    <string name="msg_passwordResetLinkSent">If the email exists, password change link will be sent your email</string>
+    <string name="msg_failedToPost">Failed to post</string>
 </resources>

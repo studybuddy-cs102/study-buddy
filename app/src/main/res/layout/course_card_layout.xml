@@ -6,10 +6,10 @@
     <data>
         <variable
             name="course"
-            type="com.cs102.studybuddy.Course" />
+            type="com.cs102.studybuddy.core.Course" />
         <variable
             name="callback"
-            type="com.cs102.studybuddy.CourseClickListener" />
+            type="com.cs102.studybuddy.listeners.CourseClickListener" />
     </data>
 
     <LinearLayout

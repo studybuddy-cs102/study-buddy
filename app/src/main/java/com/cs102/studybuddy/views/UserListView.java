@@ -1,4 +1,4 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,7 +10,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.cs102.studybuddy.core.Course;
 import com.cs102.studybuddy.databinding.UserListLayoutBinding;
+import com.cs102.studybuddy.listeners.UserClickListener;
+import com.cs102.studybuddy.core.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -63,10 +66,10 @@ public class UserListView extends ScrollView {
 
 
 //     Create course list from user's courses
-    public void populateCourseList(Course c) {
+    public void populateUserList(Course c) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        for (Map.Entry<String,Boolean> user : c.getWantsToStudy().entrySet()){
-            if (user.getValue()){
+        for (Map.Entry<String,Boolean> user : c.getWantsToStudy().entrySet()) {
+            if (user.getValue()) {
                 db.collection("users")
                     .document(user.getKey())
                     .get().addOnCompleteListener(this::onGetUser);
