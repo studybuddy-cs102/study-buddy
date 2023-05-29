@@ -1,4 +1,4 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.core;
 
 import java.util.HashMap;
 
@@ -45,7 +45,10 @@ public class User {
     public boolean isOkWithGroup() { return okWithGroup; }
 
     public void Enroll(Course c) {
-        this.enrollments.put(c.getCourseId(), 10);
+        enrollments.put(c.getCourseId(), 0);
+    }
 
+    public void Leave(Course c) {
+        enrollments.remove(c.getCourseId());
     }
 }

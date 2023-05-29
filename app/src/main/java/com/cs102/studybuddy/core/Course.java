@@ -1,4 +1,4 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.core;
 
 import java.util.HashMap;
 
@@ -30,7 +30,34 @@ public class Course {
     public HashMap<String, Boolean> getMentors() { return mentors; }
     public HashMap<String, Boolean> getWantsToStudy() { return wantsToStudy; }
 
+    public void SetWantsToStudy(User user, boolean value) {
+        String username = user.getUsername();
+        if (!wantsToStudy.containsKey(username)) {
+            wantsToStudy.put(username, true);
+            return;
+        }
+
+        wantsToStudy.put(username, value);
+    }
+
+    public void SwitchWantsToStudy(User user) {
+        SetWantsToStudy(user, !wantsToStudy.get(user.getUsername()));
+    }
+
     public void Enroll(User user) {
-        this.members.put(user.getUsername(), 0);
+        user.Enroll(this);
+
+        String username = user.getUsername();
+        members.put(username, 0);
+        wantsToStudy.put(username, true);
+    }
+
+    public void Leave(User user) {
+        user.Leave(this);
+
+        String username = user.getUsername();
+        members.remove(username);
+        mentors.remove(username);
+        wantsToStudy.remove(username);
     }
 }

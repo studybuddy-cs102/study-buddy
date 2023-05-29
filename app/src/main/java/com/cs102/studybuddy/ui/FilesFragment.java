@@ -1,4 +1,4 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import com.cs102.studybuddy.R;
 
 public class FilesFragment extends Fragment {
 

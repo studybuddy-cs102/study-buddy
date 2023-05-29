@@ -1,4 +1,4 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,6 +9,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cs102.studybuddy.core.StudyBuddy;
+import com.cs102.studybuddy.core.User;
+import com.cs102.studybuddy.R;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;

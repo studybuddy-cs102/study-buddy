@@ -1,4 +1,4 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,15 @@ import android.widget.TableLayout;
 
 import androidx.fragment.app.Fragment;
 
+import com.cs102.studybuddy.core.Course;
+import com.cs102.studybuddy.core.Match;
+import com.cs102.studybuddy.core.StudyBuddy;
+import com.cs102.studybuddy.core.User;
+import com.cs102.studybuddy.R;
+import com.cs102.studybuddy.views.CourseListView;
+import com.cs102.studybuddy.views.UserListView;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -30,26 +39,24 @@ public class SearchFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         c.Enroll(user);
-        user.Enroll(c);
         db.collection("users").document(user.getUsername()).set(user, SetOptions.merge());
         db.collection("courses").document(c.getCourseId()).set(c, SetOptions.merge());
 
         // TODO: Show the users after joining
         courseListView.setVisibility(View.GONE);
         userListView.setVisibility(View.VISIBLE);
-        userListView.populateCourseList(c);
+        userListView.populateUserList(c);
         userListView.setUserClickListener(this::onUserClick);
-        Log.d(StudyBuddy.TAG, String.format("Click %s from search", c.getCourseId()));
     }
+
     public void onUserClick(User u){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Match match = new Match(course.getCourseId(),false, new HashMap<>());
+        Match match = new Match(course.getCourseId(), false, new HashMap<>());
         match.addMember(u);
         match.addMember(((StudyBuddy) requireActivity().getApplication()).currentUser);
-        db.collection("matches").add(match);
-        Log.d(StudyBuddy.TAG, String.format("Click %s from search", u.getUsername()));
+        db.collection("matches").document().set(match);
         // TODO: OPEN chat for the match and create its collection
-        //TODO: Remove the current user from the list
+        // TODO: Remove the current user from the list
     }
 
     @Override

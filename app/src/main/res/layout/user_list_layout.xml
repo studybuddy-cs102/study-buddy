@@ -6,10 +6,10 @@
     <data>
         <variable
                 name="user"
-                type="com.cs102.studybuddy.User" />
+                type="com.cs102.studybuddy.core.User" />
         <variable
                 name="callback"
-                type="com.cs102.studybuddy.UserClickListener" />
+                type="com.cs102.studybuddy.listeners.UserClickListener" />
     </data>
 
     <LinearLayout

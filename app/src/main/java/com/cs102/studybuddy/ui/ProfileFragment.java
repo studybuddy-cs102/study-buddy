@@ -1,6 +1,5 @@
-package com.cs102.studybuddy;
+package com.cs102.studybuddy.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.cs102.studybuddy.core.StudyBuddy;
+import com.cs102.studybuddy.core.User;
+import com.cs102.studybuddy.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
