@@ -1,7 +1,6 @@
 package com.cs102.studybuddy.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.cs102.studybuddy.R;
 import com.cs102.studybuddy.views.CourseListView;
 import com.cs102.studybuddy.views.UserListView;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
@@ -25,23 +23,25 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;
 
 public class SearchFragment extends Fragment {
-    CourseListView courseListView;
-    UserListView userListView;
-    TableLayout courseTable;
-    LayoutInflater inflater;
-    View rootView;
-    Course course;
-    HashMap<String, Boolean> matchMembers;
-    User user;
+    private StudyBuddy application;
+
+    private CourseListView courseListView;
+    private UserListView userListView;
+    private View rootView;
+    private Course course;
 
     public void onCourseClick(Course c) {
         // TODO: Join the user to the course automatically
         course = c;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        c.Enroll(user);
-        db.collection("users").document(user.getUsername()).set(user, SetOptions.merge());
-        db.collection("courses").document(c.getCourseId()).set(c, SetOptions.merge());
+        c.Enroll(application.currentUser);
+        db.collection("users")
+            .document(application.currentUser.getUsername())
+            .set(application.currentUser, SetOptions.merge());
+        db.collection("courses")
+            .document(c.getCourseId())
+            .set(c, SetOptions.merge());
 
         // TODO: Show the users after joining
         courseListView.setVisibility(View.GONE);
@@ -52,29 +52,26 @@ public class SearchFragment extends Fragment {
 
     public void onUserClick(User u){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Match match = new Match(course.getCourseId(), false, new HashMap<>(),true,"");
-        match.addMember(u);
-        match.addMember(((StudyBuddy) requireActivity().getApplication()).currentUser);
-        db.collection("matches").add(match).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                match.setDocID(documentReference.getId());
-                db.collection("matches").document(match.getDocID()).set(match, SetOptions.merge());
-            }
+        Match match = new Match(
+            course.getCourseId(), u.getUsername(),
+            application.currentUser.getUsername(), true, "");
+        db.collection("matches").add(match).addOnSuccessListener(docRef -> {
+            match.setMatchId(docRef.getId());
+            db.collection("matches").document(match.getMatchId()).set(match, SetOptions.merge());
         });
-        // TODO: OPEN chat for the match and create its collection
-        // TODO: Remove the current user from the list
+
+        userListView.removeUser(u);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        application = ((StudyBuddy) requireActivity().getApplication());
         this.courseListView = rootView.findViewById(R.id.courseListView);
         this.userListView = rootView.findViewById(R.id.MatchView);
         courseListView.setCourseClickListener(this::onCourseClick);
         courseListView.populateCourseList();
-        user = ((StudyBuddy) requireActivity().getApplication()).currentUser;
         return rootView;
     }
 }

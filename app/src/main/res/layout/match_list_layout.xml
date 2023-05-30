@@ -39,7 +39,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{match.members.keySet().toString().substring(1,match.members.keySet().toString().length-1)}"
+                    android:text='@{String.format("%s, %s", match.username1, match.username2)}'
                     android:textSize="14sp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"

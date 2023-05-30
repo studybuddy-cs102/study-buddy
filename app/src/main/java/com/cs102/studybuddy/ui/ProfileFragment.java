@@ -11,16 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.cs102.studybuddy.core.Course;
 import com.cs102.studybuddy.core.Match;
 import com.cs102.studybuddy.core.StudyBuddy;
 import com.cs102.studybuddy.core.User;
 import com.cs102.studybuddy.R;
 import com.cs102.studybuddy.views.MatchListView;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -123,11 +120,10 @@ public class ProfileFragment extends Fragment {
     private void onMatchClick(Match m) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         matchListView.removeMatch(m);
-        db.collection("matches").document(m.getDocID()).delete().addOnCompleteListener(task -> Toast.makeText(
+        db.collection("matches").document(m.getMatchId()).delete().addOnCompleteListener(task -> Toast.makeText(
             getContext(),
             "Successfully Ended the Match",
             Toast.LENGTH_LONG
         ).show());
-
     }
 }
