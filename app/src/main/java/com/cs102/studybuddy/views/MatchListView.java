@@ -9,16 +9,19 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.cs102.studybuddy.core.Match;
+import com.cs102.studybuddy.core.StudyBuddy;
 import com.cs102.studybuddy.core.User;
 import com.cs102.studybuddy.databinding.MatchListLayoutBinding;
 import com.cs102.studybuddy.listeners.MatchClickListener;
+import com.cs102.studybuddy.ui.MainActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class MatchListView extends ScrollView {
+    private StudyBuddy application;
+
     private final TableLayout matchTable;
     private final HashMap<String, Match> matchList;
 
@@ -26,6 +29,7 @@ public class MatchListView extends ScrollView {
 
     public MatchListView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        application = (StudyBuddy) ((MainActivity) context).getApplication();
 
         matchList = new HashMap<>();
 
@@ -58,12 +62,12 @@ public class MatchListView extends ScrollView {
 
     // Add a course to the list
     public void addMatch(Match match) {
-        if (matchList.containsKey(match.getDocID())) return;
-        matchList.put(match.getDocID(), match);
+        if (matchList.containsKey(match.getMatchId())) return;
+        matchList.put(match.getMatchId(), match);
     }
 
     public void removeMatch(Match m) {
-        matchList.remove(m.getDocID());
+        matchList.remove(m.getMatchId());
         matchTable.removeAllViews();
         for (Match match : matchList.values()) {
             createMatchView(match);
@@ -76,26 +80,23 @@ public class MatchListView extends ScrollView {
         db.collection("matches")
             .get()
             .addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        for (Object match : document.getData().values()) {
-                            HashMap<String, Boolean> members = new HashMap<>();
-                            members.put(u.getUsername(),true);
-                            String member = members.toString();
-                            member = members.toString().substring(1,member.length()-1);
-                            if (match.toString().contains(member)) {
-                                addMatch(document.toObject(Match.class));
-                                createMatchView(document.toObject(Match.class));
-                            }
-
-                        }
-                    }
-                } else {
+                if (!task.isSuccessful()) {
                     Toast.makeText(
                         getContext(),
                         "Failed to fetch match list",
                         Toast.LENGTH_LONG
                     ).show();
+
+                    return;
+                }
+
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Match match = document.toObject(Match.class);
+                    if (match.getActive()
+                        && match.hasUser(application.currentUser.getUsername())) {
+                        addMatch(match);
+                        createMatchView(match);
+                    }
                 }
             });
     }

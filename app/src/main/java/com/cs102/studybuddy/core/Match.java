@@ -1,46 +1,36 @@
 package com.cs102.studybuddy.core;
 
-import com.google.api.BackendProto;
-
-import java.util.HashMap;
-
 public class Match {
     private Boolean isActive;
     private String courseId;
-    private Boolean isGroup;
-    private HashMap<String, Boolean> members;
-    private String docID;
+    private String username1;
+    private String username2;
+    private String matchId;
 
     public Match() {}
 
-    public Match( String courseId, boolean isGroup, HashMap<String, Boolean> members, Boolean isActive, String docID) {
+    public Match(String courseId, String username1, String username2,
+                 Boolean isActive, String matchId) {
         this.courseId = courseId;
-        this.isGroup = isGroup;
-        this.members = members;
         this.isActive = isActive;
-        this.docID = docID;
+        this.matchId = matchId;
+        this.username1 = username1;
+        this.username2 = username2;
     }
 
-    public String getCourseId() {
-        return courseId;
-    }
+    public String getCourseId() { return courseId; }
 
-    public HashMap<String, Boolean> getMembers() {
-        return members;
-    }
-    public boolean getisGroup(){
-        return isGroup;
-    }
-    public void addMember(User user) {
-        this.members.put(user.getUsername(),true);
-    }
-    public Boolean getActive() {
-        return isActive;
-    }
+    public Boolean getActive() { return isActive; }
 
-    public void setDocID(String docID) {
-        this.docID = docID;
-    }
+    public String getUsername1() { return username1; }
 
-    public String getDocID() { return docID; }
+    public String getUsername2() { return username2; }
+
+    public String getMatchId() { return matchId; }
+
+    public void setMatchId(String matchId) { this.matchId = matchId; }
+
+    public boolean hasUser(String username) {
+        return username1.equals(username) || username2.equals(username);
+    }
 }
