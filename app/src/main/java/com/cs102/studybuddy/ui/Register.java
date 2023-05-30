@@ -1,5 +1,6 @@
 package com.cs102.studybuddy.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,7 +35,7 @@ public class Register extends AppCompatActivity {
     );
     private Matcher emailMatcher;
 
-    private EditText txtEmail, txtPassword, txtPasswordConfirm, txtBirthYear;
+    private EditText txtEmail, txtPassword, txtPasswordConfirm, txtBirthYear, txtName, txtSurname;
     private RadioGroup genderGroup;
     private Button btnSignup;
     private FirebaseAuth firebaseAuth;
@@ -57,6 +58,10 @@ public class Register extends AppCompatActivity {
 
         String email = Objects.requireNonNull(authUser.getEmail());
         String username = emailMatcher.group(1);
+        String name = txtName.getText().toString();
+        String surname = txtSurname.getText().toString();
+
+
 
         String gender;
         try {
@@ -67,7 +72,7 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        User user = new User(username, email, "John", "Doe",
+        User user = new User(username, email, name, surname,
             birthYear, gender, new HashMap<>(), "", true);
 
         users.document(Objects.requireNonNull(username))
@@ -162,6 +167,7 @@ public class Register extends AppCompatActivity {
                 .addOnCompleteListener(this::onCreateUser);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,6 +175,8 @@ public class Register extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        txtName = findViewById(R.id.name);
+        txtSurname = findViewById(R.id.surname);
         txtEmail = findViewById(R.id.email_signup);
         txtPassword = findViewById(R.id.password_signup);
         txtPasswordConfirm = findViewById(R.id.confirm_password_signup);

@@ -35,25 +35,114 @@
 
 
         </LinearLayout>
-
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rectangle_shadow"
-                />
-        <Button
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:id="@+id/goButton"
-                android:textSize="15sp"
-                android:text="signout"
-                android:background="@drawable/button"
-                android:textColor="@color/white"
-                android:fontFamily="@font/avenir_bold"/>
+                android:layout_height="20dp"
+                android:background="@drawable/rectangle_shadow" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirgue Account"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/avenir_bold"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+                <EditText
+                        android:id="@+id/changeNameOrSur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/avenir"
+                        android:inputType="text"
+                        android:hint="Enter Name"
+                        android:textAlignment="center"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="20dp"
+                        android:textSize="16sp"
+                        />
+                <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/resetSurname"
+                        android:textSize="15sp"
+                        android:text="Reset Name"
+                        android:background="@drawable/button"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/avenir_bold"/>
+                <Button
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/resetName"
+                        android:textSize="15sp"
+                        android:text="Reset Surname"
+                        android:background="@drawable/button"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/avenir_bold"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                <Button
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/goButton"
+                        android:textSize="15sp"
+                        android:text="signout"
+                        android:background="@drawable/button"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/avenir_bold"/>
+                <Button
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/resetPass"
+                        android:textSize="15sp"
+                        android:text="Reset Password"
+                        android:background="@drawable/button"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/avenir_bold"/>
+            </LinearLayout>
 
+        </LinearLayout>
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Matches"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/avenir_bold"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"/>
 
-
+            <com.cs102.studybuddy.views.MatchListView
+                    android:id="@+id/matchListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone" />
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
