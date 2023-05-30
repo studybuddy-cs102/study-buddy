@@ -16,6 +16,7 @@ import com.cs102.studybuddy.core.User;
 import com.cs102.studybuddy.R;
 import com.cs102.studybuddy.views.CourseListView;
 import com.cs102.studybuddy.views.UserListView;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,10 +52,16 @@ public class SearchFragment extends Fragment {
 
     public void onUserClick(User u){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Match match = new Match(course.getCourseId(), false, new HashMap<>());
+        Match match = new Match(course.getCourseId(), false, new HashMap<>(),true,"");
         match.addMember(u);
         match.addMember(((StudyBuddy) requireActivity().getApplication()).currentUser);
-        db.collection("matches").document().set(match);
+        db.collection("matches").add(match).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                match.setDocID(documentReference.getId());
+                db.collection("matches").document(match.getDocID()).set(match, SetOptions.merge());
+            }
+        });
         // TODO: OPEN chat for the match and create its collection
         // TODO: Remove the current user from the list
     }

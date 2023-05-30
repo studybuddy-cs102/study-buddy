@@ -6,9 +6,43 @@
         tools:context=".ui.FilesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_files_fragment" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+            <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chooseFile"
+                    android:textSize="15sp"
+                    android:text="chooseFile"
+                    android:background="@drawable/button"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/avenir_bold"/>
+            <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/uploadFile"
+                    android:textSize="15sp"
+                    android:text="uploadFile"
+                    android:background="@drawable/button"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/avenir_bold"/>
+        </LinearLayout>
+
+        <com.cs102.studybuddy.views.FileListView
+                style="Theme.MaterialComponents.DayNight"
+                android:id="@+id/filesListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone" />
+    </LinearLayout>
 
 </FrameLayout>

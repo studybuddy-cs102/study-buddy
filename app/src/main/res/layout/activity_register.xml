@@ -43,11 +43,74 @@
             android:gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="20dp">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:src="@drawable/line_primary" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+            <EditText
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/avenir"
+                    android:inputType="text"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:hint="Enter Name"
+                    android:textAlignment="center"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp"
+                    android:textSize="16sp"
+                    />
+
+            <EditText
+                    android:id="@+id/surname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/avenir"
+                    android:inputType="text"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="Enter Surname"
+                    android:textAlignment="center"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp"
+                    android:textSize="16sp"
+                    android:layout_marginStart="20dp" />
+        </LinearLayout>
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:src="@drawable/line_primary" />
+
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp">
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="horizontal">
@@ -64,7 +127,7 @@
                     android:fontFamily="@font/avenir"
                     android:inputType="text"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="11dp"
                     android:layout_centerVertical="true"
                     android:hint="studybuddy@bilkent"
@@ -93,7 +156,7 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
 
@@ -110,7 +173,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/avenir"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="11dp"
                     android:layout_centerVertical="true"
                     android:inputType="textPassword"
@@ -143,12 +206,10 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-
                 android:orientation="horizontal">
-
             <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -162,7 +223,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/avenir"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="11dp"
                     android:layout_centerVertical="true"
                     android:hint="Confirm Password"
