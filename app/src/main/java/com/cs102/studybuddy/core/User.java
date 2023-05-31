@@ -57,11 +57,11 @@ public class User {
         this.surname = surname;
     }
 
-    public void Enroll(Course c) {
+    public void enroll(Course c) {
         enrollments.put(c.getCourseId(), 0);
     }
 
-    public void Leave(Course c) {
+    public void leave(Course c) {
         enrollments.remove(c.getCourseId());
     }
 }

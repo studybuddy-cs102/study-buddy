@@ -45,7 +45,7 @@ public class Course {
     }
 
     public void Enroll(User user) {
-        user.Enroll(this);
+        user.enroll(this);
 
         String username = user.getUsername();
         members.put(username, 0);
@@ -53,7 +53,7 @@ public class Course {
     }
 
     public void Leave(User user) {
-        user.Leave(this);
+        user.leave(this);
 
         String username = user.getUsername();
         members.remove(username);

@@ -1,6 +1,7 @@
 package com.cs102.studybuddy.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void onCurrentUserFetched(@NonNull Task<QuerySnapshot> task) {
         if (!task.isSuccessful()) {
+            Log.e(StudyBuddy.TAG, task.getException().getLocalizedMessage());
             Toast.makeText(this, "Failed to load user data", Toast.LENGTH_LONG)
                 .show();
 
