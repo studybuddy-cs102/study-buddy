@@ -19,14 +19,15 @@
 
 ## Screenshots
 
-![Screen Shot](imgs/1.jpg)
-![Screen Shot](imgs/2.jpg)
-![Screen Shot](imgs/3.jpg)
-![Screen Shot](imgs/4.jpg)
-![Screen Shot](imgs/5.jpg)
-![Screen Shot](imgs/6.jpg)
-![Screen Shot](imgs/7.jpg)
-![Screen Shot](imgs/8.jpg)
+<img src="imgs/1.jpg" alt="Logo" style="height:300px;">
+<img src="imgs/2.jpg" alt="Logo" style="height:300px;">
+<img src="imgs/4.jpg" alt="Logo" style="height:300px;">
+<img src="imgs/5.jpg" alt="Logo" style="height:300px;">
+<img src="imgs/6.jpg" alt="Logo" style="height:300px;">
+<img src="imgs/7.jpg" alt="Logo" style="height:300px;">
+<img src="imgs/8.jpg" alt="Logo" style="height:300px;">
+
+
 
 ## About The Project
 Communication between students increases the studying efficiency and mental health to high levels. This project aims to help ease the process of finding your study buddy. StudyBuddy will try to eliminate all the hassle and time waste in this process by integrating the app into the stu-dent’s study life. The app will quickly locate a partner who is studying the same course, organize a meeting location and time in a matter of seconds, and track their course progress. Once a student opts-in to try StudyBuddy, they will regard its positive effects on their schedules. StudyBuddy also provide security measures that ensures the safety of all users at all times. Finally, the app supports Android 10 API Level 29
@@ -46,6 +47,6 @@ The chat and forums were implemented on the same Firebase Storage account.
 
 ## Authors
 
-* **Ahmed Ibrahim Elsayed** - 0ne83 - [Profile](https://github.com/0ne83)
+* **Ahmed Ibrahim Elsayed** - *0ne83* - [Profile](https://github.com/0ne83)
 * **Umut Dağ** - *umtdg* - [Profile](https://github.com/umtdg)
 
