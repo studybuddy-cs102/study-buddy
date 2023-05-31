@@ -8,7 +8,7 @@
   <p align="center">
     Do not study alone in Bilkent, get a StudyBuddy
   </p>
-
+</p>
 ![Contributors](https://img.shields.io/github/contributors/studybuddy-cs102/study-buddy?color=dark-green) ![Issues](https://img.shields.io/github/issues/studybuddy-cs102/study-buddy)
 
 ## Table Of Contents
@@ -19,15 +19,14 @@
 
 ## Screenshots
 
-<img src="imgs/1.jpg" alt="Logo" style="height:300px;">
-<img src="imgs/2.jpg" alt="Logo" style="height:300px;">
-<img src="imgs/4.jpg" alt="Logo" style="height:300px;">
-<img src="imgs/5.jpg" alt="Logo" style="height:300px;">
-<img src="imgs/6.jpg" alt="Logo" style="height:300px;">
-<img src="imgs/7.jpg" alt="Logo" style="height:300px;">
-<img src="imgs/8.jpg" alt="Logo" style="height:300px;">
-
-
+<p float="left">
+  <img src="imgs/2.jpg" alt="Logo" style="height:300px;"> 
+  <img src="imgs/4.jpg" alt="Logo" style="height:300px;"> 
+  <img src="imgs/5.jpg" alt="Logo" style="height:300px;"> 
+  <img src="imgs/6.jpg" alt="Logo" style="height:300px;"> 
+  <img src="imgs/7.jpg" alt="Logo" style="height:300px;"> 
+  <img src="imgs/8.jpg" alt="Logo" style="height:300px;"> 
+</p>
 
 ## About The Project
 Communication between students increases the studying efficiency and mental health to high levels. This project aims to help ease the process of finding your study buddy. StudyBuddy will try to eliminate all the hassle and time waste in this process by integrating the app into the stu-dent’s study life. The app will quickly locate a partner who is studying the same course, organize a meeting location and time in a matter of seconds, and track their course progress. Once a student opts-in to try StudyBuddy, they will regard its positive effects on their schedules. StudyBuddy also provide security measures that ensures the safety of all users at all times. Finally, the app supports Android 10 API Level 29
