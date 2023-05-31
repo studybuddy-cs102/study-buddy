@@ -13,11 +13,13 @@
     <a href="https://github.com/studybuddy-cs102/StudyBuddy"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://github.com/studybuddy-cs102/StudyBuddy">View Demo</a>
+    <a href="https://github.com/studybuddy-cs102/study-buddy">View Demo</a>
     .
-    <a href="https://github.com/studybuddy-cs102/StudyBuddy/issues">Report Bug</a>
+    <a href="https://github.com/studybuddy-cs102/study-buddy
+/issues">Report Bug</a>
     .
-    <a href="https://github.com/studybuddy-cs102/StudyBuddy/issues">Request Feature</a>
+    <a href="https://github.com/studybuddy-cs102/study-buddy
+/issues">Request Feature</a>
   </p>
 </p>
 
@@ -45,16 +47,10 @@ The user authentication system and databases which includes usernames, passwords
 The course list will be scraped from Bilkent’s course offerings site and stored on the database. 
 The chat and forums were implemented on the same Firebase Storage account.
 
-### Creating A Pull Request
+### Class Diagram
 
-
+<img src="images/logo.png" alt="Logo" width="80" height="80">
 
 ## Authors
 
 * **StudyBuddy** - *CS102 Project Bilkent* - [StudyBuddy](https://github.com/studybuddy-cs102) - **
-
-## Acknowledgements
-
-* [ShaanCoding](https://github.com/ShaanCoding/)
-* [Othneil Drew](https://github.com/othneildrew/Best-README-Template)
-* [ImgShields](https://shields.io/)
