@@ -1,7 +1,7 @@
 package com.cs102.studybuddy.core;
 
 public class Match {
-    private Boolean isActive;
+    private Boolean active;
     private String courseId;
     private String username1;
     private String username2;
@@ -10,9 +10,9 @@ public class Match {
     public Match() {}
 
     public Match(String courseId, String username1, String username2,
-                 Boolean isActive, String matchId) {
+                 Boolean active, String matchId) {
         this.courseId = courseId;
-        this.isActive = isActive;
+        this.active = active;
         this.matchId = matchId;
         this.username1 = username1;
         this.username2 = username2;
@@ -20,7 +20,7 @@ public class Match {
 
     public String getCourseId() { return courseId; }
 
-    public Boolean getActive() { return isActive; }
+    public Boolean getActive() { return active; }
 
     public String getUsername1() { return username1; }
 
