@@ -8,8 +8,9 @@
   <p align="center">
     Do not study alone in Bilkent, get a StudyBuddy
   </p>
-</p>
-![Contributors](https://img.shields.io/github/contributors/studybuddy-cs102/study-buddy?color=dark-green) ![Issues](https://img.shields.io/github/issues/studybuddy-cs102/study-buddy)
+
+![Contributors](https://img.shields.io/github/contributors/studybuddy-cs102/study-buddy?color=dark-green) 
+![Issues](https://img.shields.io/github/issues/studybuddy-cs102/study-buddy)
 
 ## Table Of Contents
 
