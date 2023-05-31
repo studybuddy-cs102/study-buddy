@@ -71,7 +71,7 @@ public class MainFragment extends Fragment {
 
         createdPost = new Post(
             c.getCourseId(), currentUser.getUsername(),
-            content, System.currentTimeMillis(), 0
+            content, System.currentTimeMillis()
         );
         FirebaseFirestore.getInstance()
             .collection("posts")
